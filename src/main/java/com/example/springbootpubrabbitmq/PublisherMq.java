@@ -25,4 +25,10 @@ public class PublisherMq {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @GetMapping("/createListener/{queueId}")
+    public ResponseEntity<String> createListener(@PathVariable String queueId) {
+        rabbitTemplate.convertAndSend("listenerCreator", queueId);
+        return ResponseEntity.ok(queueId);
+    }
 }
